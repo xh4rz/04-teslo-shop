@@ -13,10 +13,14 @@ import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { fileFilter, fileNamer } from './helpers/';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('files')
 export class FilesController {
-  constructor(private readonly filesService: FilesService) {}
+  constructor(
+    private readonly filesService: FilesService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Get('product/:imageName')
   findProductImage(
@@ -42,7 +46,8 @@ export class FilesController {
     @UploadedFile(new ParseFilePipe())
     file: Express.Multer.File,
   ) {
-    const secureUrl = `${file.filename}`;
+    // const secureUrl = `${file.filename}`;
+    const secureUrl = `${this.configService.get('HOST_API')}/files/product/${file.filename}`;
 
     return {
       secureUrl,
