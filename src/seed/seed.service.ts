@@ -16,11 +16,11 @@ export class SeedService {
 
     const products = initialData.products;
 
-    const insertPromises = products.map((product) =>
-      this.productsService.create(product),
-    );
+    // const insertPromises = products.map((product) =>
+    //   this.productsService.create(product),
+    // );
 
-    await Promise.all(insertPromises);
+    // await Promise.all(insertPromises);
 
     return true;
   }

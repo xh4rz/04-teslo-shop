@@ -63,7 +63,9 @@ export class Product {
   })
   images?: ProductImage[];
 
-  @ManyToOne(() => User, (user) => user.product)
+  @ManyToOne(() => User, (user) => user.product, {
+    eager: true,
+  })
   user: User;
 
   @BeforeInsert()
